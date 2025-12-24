@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Irun & Asri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&family=Cormorant+Garamond:wght@300;600&family=Amiri&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #fcfaf2; color: #4a4a4a; scroll-behavior: smooth; overflow: hidden; position: relative; }
+        .font-title { font-family: 'Great Vibes', cursive; }
+        .font-name { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Montserrat', sans-serif; }
+        .font-section { font-family: 'Cormorant Garamond', serif; }
+        .font-arabic { font-family: 'Amiri', serif; }
+        
+        /* Overlay Pembuka */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fcfaf2; z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: all 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        /* Animasi Kelopak Bunga Jatuh */
+        .petal {
+            position: fixed; top: -10%; z-index: 99;
+            user-select: none; pointer-events: none;
+            animation-name: fall; animation-timing-function: linear; animation-iteration-count: infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(252, 250, 242, 0.7), rgba(252, 250, 242, 0.7)), 
+                        url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
+
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); border: 1px solid #e5e1d3; }
+        
+        /* Floating Animation */
+        .floating { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Flower Corner Decoration */
+        .flower-corner {
+            position: absolute; width: 150px; opacity: 0.6; z-index: 10;
+        }
+    </style>
+</head>
+<body class="font-body">
+
+    <div id="petal-container"></div>
+
+    <div id="overlay">
+        <div class="text-center p-6 relative">
+            <h2 class="text-amber-900 tracking-[0.5em] mb-4 font-section text-sm">WEDDING ANNOUNCEMENT</h2>
+            <h1 class="text-6xl md:text-8xl font-title text-amber-800 mb-8">Irun & Asri</h1>
+            <div class="mb-10">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p>
+                <p class="text-2xl font-name font-bold text-amber-950 italic uppercase">Tamu Undangan</p>
+            </div>
+            <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95">
+                ✉️ BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="fixed bottom-5 right-5 z-50">
+        <button onclick="toggleMusic()" id="musicBtn" class="bg-amber-800/80 backdrop-blur-md text-white p-4 rounded-full shadow-lg">
+            <span id="musicIcon">🎵</span>
+        </button>
+    </div>
+
+    <div id="main-content">
+        <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 hero-bg relative overflow-hidden">
+            <img src="https://img.freepik.com/free-vector/elegant-watercolor-floral-frame-collection_23-2148943445.jpg?w=200" class="flower-corner top-0 left-0 -rotate-90 hidden md:block" alt="deco">
+            
+            <h2 class="text-lg font-section italic mb-4 tracking-[0.3em] text-amber-900">MENIKAH</h2>
+            <h1 class="text-7xl md:text-9xl font-title text-amber-800 mb-8">Irun & Asri</h1>
+            <div class="relative mb-10 floating">
+                <div class="absolute inset-0 bg-amber-200 rounded-full blur-2xl opacity-30"></div>
+                <img src="poto.png" 
+                     alt="Ilustrasi" class="w-72 h-72 md:w-96 md:h-96 object-cover rounded-full border-[12px] border-white shadow-2xl mx-auto relative z-10">
+            </div>
+            <p class="text-xl font-body tracking-[0.6em] uppercase text-amber-900 font-bold">29 . 03 . 2026</p>
+        </section>
+
+        <section class="py-32 px-6 text-center bg-white relative">
+            <div class="max-w-3xl mx-auto border-y-2 border-amber-50 py-12">
+                <p class="text-3xl md:text-5xl leading-loose font-arabic mb-10 text-slate-800" dir="rtl">
+                    وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+                </p>
+                <p class="font-body text-sm md:text-base italic text-slate-500 leading-relaxed px-4">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."<br><strong>(QS. Ar-Rum: 21)</strong>
+                </p>
+            </div>
+        </section>
+
+        <section class="py-32 px-6 text-center hero-bg">
+            <h2 class="text-4xl font-name mb-24 text-amber-900 tracking-widest">KEDUA MEMPELAI</h2>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-20">
+                <div class="p-8 card rounded-3xl">
+                    <h3 class="text-5xl font-title text-amber-800 mb-6">Choirun Anwar</h3>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Putra Tercinta Dari</p>
+                    <p class="text-xl font-name font-bold text-amber-950">Bapak Suseno Aji <br>& Ibu Alimah</p>
+                </div>
+                <div class="p-8 card rounded-3xl">
+                    <h3 class="text-5xl font-title text-amber-800 mb-6">Asri Widyasari</h3>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Putri Tercinta Dari</p>
+                    <p class="text-xl font-name font-bold text-amber-950">Bapak Sutanto <br>& Ibu Juariyah</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 px-6">
+            <div class="max-w-4xl mx-auto card p-10 md:p-20 rounded-[4rem] text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-16 -mt-16"></div>
+                
+                <h2 class="text-4xl font-section font-bold mb-16 text-amber-950 tracking-widest">SAVE THE DATE</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 mb-16">
+                    <div class="border-b-2 md:border-b-0 md:border-r-2 border-amber-100 pb-8 md:pb-0 md:pr-8">
+                        <h4 class="font-bold text-amber-800 text-2xl font-name mb-4 italic">Akad Nikah</h4>
+                        <p class="text-sm">Minggu, 29 Maret 2026</p>
+                        <p class="text-sm font-bold mt-2">Pukul 08.00 WIB - Selesai</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amber-800 text-2xl font-name mb-4 italic">Resepsi</h4>
+                        <p class="text-sm">Minggu, 29 Maret 2026</p>
+                        <p class="text-sm font-bold mt-2">Pukul 11.00 WIB - Selesai</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <p class="font-bold text-amber-900 uppercase text-xs tracking-[0.4em]">Lokasi Acara:</p>
+                    <p class="text-2xl font-name font-bold italic">Kediaman Mempelai Putri</p>
+                    <p class="text-sm text-slate-500 leading-loose">Dk. Semboja Timur RT 003 RW 001 Ds. Kaliboja<br>Kec. Paninggaran, Kab. Pekalongan</p>
+                    <a href="https://maps.app.goo.gl/VhPPrJBmLSghuaDu6" target="_blank" class="inline-block mt-8 bg-amber-900 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-xl hover:bg-black transition-all">GOOGLE MAPS</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 px-6 max-w-2xl mx-auto">
+            <div class="bg-white p-12 rounded-[3rem] shadow-2xl border border-amber-50 text-center">
+                <h2 class="text-3xl font-name mb-4 text-amber-900 italic">Konfirmasi Kehadiran</h2>
+                <p class="text-xs text-slate-400 mb-10 tracking-widest font-bold uppercase">Kami sangat menantikan kehadiran anda</p>
+                <form class="space-y-8 text-left font-body">
+                    <input type="text" placeholder="Nama Lengkap" class="w-full p-4 border-b-2 border-amber-50 focus:border-amber-800 bg-transparent outline-none transition-all">
+                    <select class="w-full p-4 border-b-2 border-amber-50 focus:border-amber-800 bg-transparent outline-none">
+                        <option>Hadir</option>
+                        <option>Tidak Hadir</option>
+                        <option>Masih Ragu</option>
+                    </select>
+                    <textarea placeholder="Pesan untuk mempelai" class="w-full p-4 border-b-2 border-amber-50 focus:border-amber-800 bg-transparent outline-none h-24"></textarea>
+                    <button type="submit" class="w-full bg-amber-800 text-white py-5 rounded-2xl font-bold tracking-[0.3em] hover:bg-black transition-all shadow-lg uppercase text-xs">Kirim Konfirmasi</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="py-32 px-6 text-center bg-white">
+            <h2 class="text-3xl font-section mb-10 text-amber-900 italic">Digital Gift</h2>
+            <div class="card p-12 inline-block rounded-[3rem] shadow-xl max-w-md w-full border-2 border-amber-50">
+                <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em] mb-6">Transfer Bank</p>
+                <img src="bca.png" alt="Blu BCA Digital" class="h-10 mx-auto mb-6">
+                <p class="text-3xl font-mono text-amber-800 font-bold mb-4" id="norek">008634073206</p>
+                <p class="text-sm font-bold text-slate-600 uppercase tracking-widest">a.n Asri Widyasari</p>
+                <button onclick="copyNorek()" class="mt-8 text-[10px] text-amber-800 border border-amber-800 px-6 py-2 rounded-full font-bold hover:bg-amber-800 hover:text-white transition-all uppercase tracking-widest">Salin No. Rekening</button>
+            </div>
+        </section>
+
+        <footer class="py-20 text-center border-t border-amber-50 hero-bg">
+            <h3 class="font-title text-5xl text-amber-800 mb-4">Irun & Asri</h3>
+            <p class="text-[10px] tracking-[0.8em] text-slate-400 uppercase">Sampai Jadi Debu - Banda Neira</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animasi Kelopak Bunga
+        const container = document.getElementById('petal-container');
+        const petalIcons = ['🌸', '🍃', '💮', '✨'];
+        
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.innerHTML = petalIcons[Math.floor(Math.random() * petalIcons.length)];
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = Math.random() * 20 + 10 + 'px';
+            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+            petal.style.opacity = Math.random();
+            container.appendChild(petal);
+            
+            setTimeout(() => { petal.remove(); }, 7000);
+        }
+        setInterval(createPetal, 300);
+
+        const audio = document.getElementById('bgMusic');
+        const overlay = document.getElementById('overlay');
+
+        function bukaUndangan() {
+            overlay.style.opacity = "0";
+            overlay.style.transform = "translateY(-100%)";
+            setTimeout(() => {
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto";
+            }, 1200);
+            audio.play();
+            document.getElementById('musicIcon').innerHTML = "⏸";
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                document.getElementById('musicIcon').innerHTML = "⏸";
+            } else {
+                audio.pause();
+                document.getElementById('musicIcon').innerHTML = "🎵";
+            }
+        }
+
+        function copyNorek() {
+            const text = document.getElementById('norek').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Nomor Rekening Disalin!");
+        }
+    </script>
+</body>
+</html>
