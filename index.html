@@ -290,9 +290,12 @@ db.collection('rsvp')
     });
   });
 
-
     </script>
-  <script>
+
+<script>
+/* =========================
+   FORMAT NAMA TAMU
+========================= */
 function formatNamaTamu(nama) {
   if (!nama) return "Tamu Undangan";
 
@@ -308,42 +311,51 @@ function formatNamaTamu(nama) {
     })
     .join(" ");
 
-  nama = nama.replace(/&\s*keluarga/i, "& Keluarga");
-  return nama;
+  return nama.replace(/&\s*keluarga/i, "& Keluarga");
 }
 
+/* =========================
+   BUKA UNDANGAN
+========================= */
 function bukaUndangan() {
   const overlay = document.getElementById("overlay");
   const namaEl = document.getElementById("namaTamu");
   const audio = document.getElementById("bgMusic");
 
-  // 1️⃣ Animasi tutup overlay
-  overlay.style.opacity = "0";
-  overlay.style.transform = "translateY(-100%)";
+  // 1️⃣ Ambil nama dari URL
+  const params = new URLSearchParams(window.location.search);
+  const rawNama = params.get("to");
+
+  namaEl.innerText = formatNamaTamu(
+    decodeURIComponent(rawNama || "")
+  );
+
+  // 2️⃣ Animasi nama
+  setTimeout(() => {
+    namaEl.classList.add("show");
+  }, 100);
+
+  // 3️⃣ Tutup overlay
+  setTimeout(() => {
+    overlay.style.opacity = "0";
+    overlay.style.transform = "translateY(-100%)";
+  }, 400);
 
   setTimeout(() => {
     overlay.style.display = "none";
-    document.body.style.overflow = "auto"; // 🔥 INI PENTING
-  }, 1200);
+    document.body.style.overflow = "auto";
+  }, 1400);
 
-  // 2️⃣ Set nama tamu dari URL
-  const params = new URLSearchParams(window.location.search);
-  const rawNama = params.get("to");
-  namaEl.innerText = formatNamaTamu(decodeURIComponent(rawNama || ""));
-
-  // 3️⃣ Animasi nama
-  setTimeout(() => {
-    namaEl.classList.add("show");
-  }, 300);
-
-  // 4️⃣ Play musik
+  // 4️⃣ Musik
   audio.play().catch(() => {});
-  document.getElementById('musicIcon').innerHTML = "⏸";
+  document.getElementById("musicIcon").innerHTML = "⏸";
 }
 </script>
 
+
 </body>
 </html>
+
 
 
 
