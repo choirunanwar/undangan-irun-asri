@@ -230,7 +230,7 @@ projectId: "undangan-asri-irun"
 });
 const db = firebase.firestore();
 
-        function bukaUndangan() {
+    /*    function bukaUndangan() {
             overlay.style.opacity = "0";
             overlay.style.transform = "translateY(-100%)";
             setTimeout(() => {
@@ -239,7 +239,7 @@ const db = firebase.firestore();
             }, 1200);
             audio.play();
             document.getElementById('musicIcon').innerHTML = "⏸";
-        }
+        } */
 
         function toggleMusic() {
             if (audio.paused) {
@@ -291,7 +291,7 @@ db.collection('rsvp')
 
 
     </script>
-    <script>
+  <script>
 function formatNamaTamu(nama) {
   if (!nama) return "Tamu Undangan";
 
@@ -312,25 +312,38 @@ function formatNamaTamu(nama) {
 }
 
 function bukaUndangan() {
-  // 🔹 Tutup overlay
-  document.getElementById("overlay").style.display = "none";
+  const overlay = document.getElementById("overlay");
+  const namaEl = document.getElementById("namaTamu");
+  const audio = document.getElementById("bgMusic");
 
-  // 🔹 Ambil nama dari URL
+  // 1️⃣ Animasi tutup overlay
+  overlay.style.opacity = "0";
+  overlay.style.transform = "translateY(-100%)";
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+    document.body.style.overflow = "auto"; // 🔥 INI PENTING
+  }, 1200);
+
+  // 2️⃣ Set nama tamu dari URL
   const params = new URLSearchParams(window.location.search);
   const rawNama = params.get("to");
-
-  const namaEl = document.getElementById("namaTamu");
   namaEl.innerText = formatNamaTamu(decodeURIComponent(rawNama || ""));
 
-  // 🔹 Trigger animasi
+  // 3️⃣ Animasi nama
   setTimeout(() => {
     namaEl.classList.add("show");
-  }, 100);
+  }, 300);
+
+  // 4️⃣ Play musik
+  audio.play().catch(() => {});
+  document.getElementById('musicIcon').innerHTML = "⏸";
 }
 </script>
 
 </body>
 </html>
+
 
 
 
