@@ -263,15 +263,23 @@ form.reset();
 });
 
 
-db.collection('rsvp').where('hadir','==','Hadir').orderBy('waktu','desc')
-.onSnapshot(snap=>{
-box.innerHTML='';
-snap.forEach(doc=>{
-const d=doc.data();
-box.innerHTML+=`<div class="border-b py-3"><strong>${d.nama}</strong><br>${d.pesan}</div>`;
-});
-});
+db.collection('rsvp')
+  .onSnapshot(snapshot => {
+    const box = document.getElementById('komentar');
+    box.innerHTML = '';
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      box.innerHTML += `
+        <div style="border-bottom:1px solid #ddd;padding:8px 0">
+          <strong>${d.nama}</strong><br>
+          ${d.pesan || ''}
+        </div>
+      `;
+    });
+  });
+
     </script>
 </body>
 </html>
+
 
