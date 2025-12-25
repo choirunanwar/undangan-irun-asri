@@ -262,11 +262,12 @@ waktu:firebase.firestore.FieldValue.serverTimestamp()
 form.reset();
 });
 
-
 db.collection('rsvp')
+  .where('hadir', '==', 'Hadir')
   .onSnapshot(snapshot => {
     const box = document.getElementById('komentar');
     box.innerHTML = '';
+
     snapshot.forEach(doc => {
       const d = doc.data();
       box.innerHTML += `
@@ -278,8 +279,10 @@ db.collection('rsvp')
     });
   });
 
+
     </script>
 </body>
 </html>
+
 
 
