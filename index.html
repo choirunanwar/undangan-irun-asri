@@ -302,27 +302,22 @@ function formatNamaTamu(nama) {
   nama = nama.trim().replace(/\s+/g, " ");
   nama = nama.replace(/\b(dan|Dan|DAN)\b/g, "&");
 
-  nama = nama
+  return nama
     .toLowerCase()
     .split(" ")
     .map(kata => {
       if (kata === "&") return "&";
       return kata.charAt(0).toUpperCase() + kata.slice(1);
     })
-    .join(" ");
-
-  return nama.replace(/&\s*keluarga/i, "& Keluarga");
+    .join(" ")
+    .replace(/&\s*keluarga/i, "& Keluarga");
 }
 
 /* =========================
-   BUKA UNDANGAN
+   SET NAMA SAAT LOAD
 ========================= */
-function bukaUndangan() {
-  const overlay = document.getElementById("overlay");
+document.addEventListener("DOMContentLoaded", () => {
   const namaEl = document.getElementById("namaTamu");
-  const audio = document.getElementById("bgMusic");
-
-  // 1️⃣ Ambil nama dari URL
   const params = new URLSearchParams(window.location.search);
   const rawNama = params.get("to");
 
@@ -330,23 +325,27 @@ function bukaUndangan() {
     decodeURIComponent(rawNama || "")
   );
 
-  // 2️⃣ Animasi nama
+  // animasi masuk di COVER
   setTimeout(() => {
     namaEl.classList.add("show");
-  }, 100);
+  }, 300);
+});
 
-  // 3️⃣ Tutup overlay
-  setTimeout(() => {
-    overlay.style.opacity = "0";
-    overlay.style.transform = "translateY(-100%)";
-  }, 400);
+/* =========================
+   BUKA UNDANGAN (TUTUP COVER)
+========================= */
+function bukaUndangan() {
+  const overlay = document.getElementById("overlay");
+  const audio = document.getElementById("bgMusic");
+
+  overlay.style.opacity = "0";
+  overlay.style.transform = "translateY(-100%)";
 
   setTimeout(() => {
     overlay.style.display = "none";
     document.body.style.overflow = "auto";
-  }, 1400);
+  }, 1200);
 
-  // 4️⃣ Musik
   audio.play().catch(() => {});
   document.getElementById("musicIcon").innerHTML = "⏸";
 }
@@ -355,6 +354,7 @@ function bukaUndangan() {
 
 </body>
 </html>
+
 
 
 
