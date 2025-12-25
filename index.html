@@ -56,13 +56,13 @@
        /* .flower-corner {
             position: absolute; width: 150px; opacity: 0.6; z-index: 10;
         } */
-        .nama-tamu {
+        .namaTamu {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.nama-tamu.show {
+.namaTamu.show {
   opacity: 1;
   transform: translateY(0);
 }
@@ -77,7 +77,8 @@
             <h1 class="text-6xl md:text-8xl font-title text-amber-800 mb-8">Irun & Asri</h1> 
             <div class="mb-10"> 
                 <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p> 
-                <p id="namaTamu" class="text-2xl font-name font-bold text-amber-950 italic uppercase nama-tamu">
+                <p id="namaTamu" 
+                    class="text-2xl font-name font-bold text-amber-950 italic uppercase nama-tamu">
   Tamu Undangan</p> 
             </div> <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95"> 
                 ✉️ BUKA UNDANGAN 
@@ -343,6 +344,7 @@ function bukaUndangan() {
 
 </body>
 </html>
+
 
 
 
