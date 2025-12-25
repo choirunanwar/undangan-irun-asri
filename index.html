@@ -1,216 +1,276 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Undangan Pernikahan Choirun & Asri</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Irun & Asri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&family=Cormorant+Garamond:wght@300;600&family=Amiri&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <style>
+        body { background-color: #fcfaf2; color: #4a4a4a; scroll-behavior: smooth; overflow: hidden; position: relative; }
+        .font-title { font-family: 'Great Vibes', cursive; }
+        .font-name { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Montserrat', sans-serif; }
+        .font-section { font-family: 'Cormorant Garamond', serif; }
+        .font-arabic { font-family: 'Amiri', serif; }
+        
+        /* Overlay Pembuka */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fcfaf2; z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: all 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+        /* Animasi Kelopak Bunga Jatuh */
+        .petal {
+            position: fixed; top: -10%; z-index: 99;
+            user-select: none; pointer-events: none;
+            animation-name: fall; animation-timing-function: linear; animation-iteration-count: infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
 
-<style>
-body{
-  margin:0;
-  font-family:'Playfair Display',serif;
-  background:#f5efe6;
-  color:#5a4632;
-  text-align:center;
-}
-.cover{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(180deg,#f5efe6,#fff);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-.cover-inner{padding:40px}
-.cover-title{font-family:'Great Vibes',cursive;font-size:40px}
-.cover button{
-  margin-top:20px;
-  padding:14px 30px;
-  border-radius:30px;
-  border:none;
-  background:#d8c3a5;
-  font-size:16px;
-  cursor:pointer;
-}
-.section{
-  margin:48px 18px;
-  padding:70px 24px;
-  background:#fff;
-  border-radius:26px;
-  border:2px solid #e6d3b1;
-  box-shadow:0 12px 32px rgba(0,0,0,.08);
-}
-.divider{margin:30px 0;color:#d8c3a5;letter-spacing:6px}
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:12px;
-  border:1px solid #e0d0b8;
-  font-family:Poppins,sans-serif;
-}
-button{
-  background:#d8c3a5;
-  border:none;
-  padding:12px 22px;
-  border-radius:25px;
-  font-size:16px;
-}
-.comment{
-  border:1px solid #e6d3b1;
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:12px;
-  text-align:left;
-}
-</style>
+        .hero-bg {
+            background: linear-gradient(rgba(252, 250, 242, 0.7), rgba(252, 250, 242, 0.7)), 
+                        url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
+
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); border: 1px solid #e5e1d3; }
+        
+        /* Floating Animation */
+        .floating { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Flower Corner Decoration */
+        .flower-corner {
+            position: absolute; width: 150px; opacity: 0.6; z-index: 10;
+        }
+    </style>
 </head>
+<body class="font-body">
 
-<body>
+    <div id="petal-container"></div>
 
-<!-- COVER -->
-<div class="cover" id="cover">
-  <div class="cover-inner">
-    <p>Bismillahirrahmanirrahim</p>
-    <h1 class="cover-title">Choirun Anwar</h1>
-    <p>&</p>
-    <h1 class="cover-title">Asri Widyasari</h1>
-    <p>Ahad, 29 Maret 2026</p>
-    <button onclick="document.getElementById('cover').style.display='none'">
-      Buka Undangan
-    </button>
-  </div>
-</div>
+    <div id="overlay">
+        <div class="text-center p-6 relative">
+            <h2 class="text-amber-900 tracking-[0.5em] mb-4 font-section text-sm">WEDDING ANNOUNCEMENT</h2>
+            <h1 class="text-6xl md:text-8xl font-title text-amber-800 mb-8">Irun & Asri</h1>
+            <div class="mb-10">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p>
+                <p class="text-2xl font-name font-bold text-amber-950 italic uppercase">Tamu Undangan</p>
+            </div>
+            <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95">
+                ✉️ BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
 
-<!-- MEMPELAI -->
-<section class="section">
-<h2>1. Mempelai</h2>
+    <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
 
-<svg width="220" height="220" viewBox="0 0 220 220">
-  <circle cx="110" cy="110" r="105" fill="#f7efe4" stroke="#e6d3b1" stroke-width="4"/>
-  <circle cx="90" cy="100" r="10" fill="#b89b6a"/>
-  <circle cx="130" cy="100" r="10" fill="#b89b6a"/>
-  <path d="M95 120 Q110 130 125 120" fill="none" stroke="#b89b6a" stroke-width="3"/>
-</svg>
+    <div class="fixed bottom-5 right-5 z-50">
+        <button onclick="toggleMusic()" id="musicBtn" class="bg-amber-800/80 backdrop-blur-md text-white p-4 rounded-full shadow-lg">
+            <span id="musicIcon">🎵</span>
+        </button>
+    </div>
 
-<p><strong>Choirun Anwar</strong><br>
-Putra dari Bapak Suseno Aji & Ibu Alimah</p>
+    <div id="main-content">
+        <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 hero-bg relative overflow-hidden">
+            <img src="https://img.freepik.com/free-vector/elegant-watercolor-floral-frame-collection_23-2148943445.jpg?w=200" class="flower-corner top-0 left-0 -rotate-90 hidden md:block" alt="deco">
+            
+            <h2 class="text-lg font-section italic mb-4 tracking-[0.3em] text-amber-900">MENIKAH</h2>
+            <h1 class="text-7xl md:text-9xl font-title text-amber-800 mb-8">Irun & Asri</h1>
+            <div class="relative mb-10 floating">
+                <div class="absolute inset-0 bg-amber-200 rounded-full blur-2xl opacity-30"></div>
+                <img src="poto.png" 
+                     alt="Ilustrasi" class="w-72 h-72 md:w-96 md:h-96 object-cover rounded-full border-[12px] border-white shadow-2xl mx-auto relative z-10">
+            </div>
+            <p class="text-xl font-body tracking-[0.6em] uppercase text-amber-900 font-bold">29 . 03 . 2026</p>
+        </section>
 
-<p><strong>Asri Widyasari</strong><br>
-Putri dari Bapak Sutanto & Ibu Juariyah</p>
-</section>
+        <section class="py-32 px-6 text-center bg-white relative">
+            <div class="max-w-3xl mx-auto border-y-2 border-amber-50 py-12">
+                <p class="text-3xl md:text-5xl leading-loose font-arabic mb-10 text-slate-800" dir="rtl">
+                    وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+                </p>
+                <p class="font-body text-sm md:text-base italic text-slate-500 leading-relaxed px-4">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."<br><strong>(QS. Ar-Rum: 21)</strong>
+                </p>
+            </div>
+        </section>
 
-<div class="divider">❀ ❀ ❀</div>
+        <section class="py-32 px-6 text-center hero-bg">
+            <h2 class="text-4xl font-name mb-24 text-amber-900 tracking-widest">KEDUA MEMPELAI</h2>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-20">
+                <div class="p-8 card rounded-3xl">
+                    <h3 class="text-5xl font-title text-amber-800 mb-6">Choirun Anwar</h3>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Putra Tercinta Dari</p>
+                    <p class="text-xl font-name font-bold text-amber-950">Bapak Suseno Aji <br>& Ibu Alimah</p>
+                </div>
+                <div class="p-8 card rounded-3xl">
+                    <h3 class="text-5xl font-title text-amber-800 mb-6">Asri Widyasari</h3>
+                    <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-2">Putri Tercinta Dari</p>
+                    <p class="text-xl font-name font-bold text-amber-950">Bapak Sutanto <br>& Ibu Juariyah</p>
+                </div>
+            </div>
+        </section>
 
-<!-- AYAT -->
-<section class="section">
-<p>
-"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri,
-agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
-</p>
-<p><strong>(QS. Ar-Rum: 21)</strong></p>
-</section>
+        <section class="py-32 px-6">
+            <div class="max-w-4xl mx-auto card p-10 md:p-20 rounded-[4rem] text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-16 -mt-16"></div>
+                
+                <h2 class="text-4xl font-section font-bold mb-16 text-amber-950 tracking-widest">SAVE THE DATE</h2>
+                
+                <div class="grid md:grid-cols-2 gap-12 mb-16">
+                    <div class="border-b-2 md:border-b-0 md:border-r-2 border-amber-100 pb-8 md:pb-0 md:pr-8">
+                        <h4 class="font-bold text-amber-800 text-2xl font-name mb-4 italic">Akad Nikah</h4>
+                        <p class="text-sm">Minggu, 29 Maret 2026</p>
+                        <p class="text-sm font-bold mt-2">Pukul 08.00 WIB - Selesai</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-amber-800 text-2xl font-name mb-4 italic">Resepsi</h4>
+                        <p class="text-sm">Minggu, 29 Maret 2026</p>
+                        <p class="text-sm font-bold mt-2">Pukul 11.00 WIB - Selesai</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <p class="font-bold text-amber-900 uppercase text-xs tracking-[0.4em]">Lokasi Acara:</p>
+                    <p class="text-2xl font-name font-bold italic">Kediaman Mempelai Putri</p>
+                    <p class="text-sm text-slate-500 leading-loose">Dk. Semboja Timur RT 003 RW 001 Ds. Kaliboja<br>Kec. Paninggaran, Kab. Pekalongan</p>
+                    <a href="https://maps.app.goo.gl/VhPPrJBmLSghuaDu6" target="_blank" class="inline-block mt-8 bg-amber-900 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-xl hover:bg-black transition-all">GOOGLE MAPS</a>
+                </div>
+            </div>
+        </section>
 
-<div class="divider">❀ ❀ ❀</div>
+        <section class="py-24 text-center bg-white">
+<h2 class="font-name text-3xl mb-8">RSVP & Ucapan</h2>
 
-<!-- LOKASI -->
-<section class="section">
-<h2>2. Lokasi</h2>
-<p>
-Dk. Semboja Timur RT 003 RW 001<br>
-Ds. Kaliboja, Kec. Paninggaran<br>
-Kab. Pekalongan
-</p>
-<iframe
-  src="https://www.google.com/maps?q=Dk.%20Semboja%20Timur%20RT%20003%20RW%20001%20Ds.%20Kaliboja%20Kec.%20Paninggaran%20Kab.%20Pekalongan&output=embed"
-  width="100%" height="250" style="border-radius:12px;border:0">
-</iframe>
-</section>
 
-<div class="divider">❀ ❀ ❀</div>
-
-<!-- RSVP + KOMENTAR GLOBAL -->
-<section class="section" id="rsvp">
-<h2>3. Konfirmasi Kehadiran & Ucapan</h2>
-
-<form id="commentForm" style="max-width:420px;margin:auto">
-  <input id="nama" placeholder="Nama Anda" required>
-  <select id="hadir" required>
-    <option value="">Kehadiran</option>
-    <option value="Hadir">Hadir</option>
-    <option value="Tidak Hadir">Tidak Hadir</option>
-  </select>
-  <textarea id="pesan" rows="4" placeholder="Ucapan & doa"></textarea>
-  <button type="submit">Kirim</button>
+<form id="rsvpForm" class="max-w-md mx-auto space-y-4">
+<input id="nama" required placeholder="Nama" class="w-full p-3 border">
+<select id="kehadiran" class="w-full p-3 border">
+<option value="Hadir">Hadir</option>
+<option value="Tidak Hadir">Tidak Hadir</option>
+</select>
+<textarea id="pesan" placeholder="Ucapan" class="w-full p-3 border"></textarea>
+<button class="bg-amber-800 text-white px-6 py-3 w-full">Kirim</button>
 </form>
 
-<div style="margin:20px">
-  <button onclick="setFilter('all')">Semua</button>
-  <button onclick="setFilter('Hadir')">Hanya Hadir</button>
-</div>
 
-<div id="commentList"></div>
+<div id="komentar" class="max-w-md mx-auto mt-12 text-left"></div>
 </section>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+        <section class="py-32 px-6 text-center bg-white">
+            <h2 class="text-3xl font-section mb-10 text-amber-900 italic">Digital Gift</h2>
+            <div class="card p-12 inline-block rounded-[3rem] shadow-xl max-w-md w-full border-2 border-amber-50">
+                <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em] mb-6">Transfer Bank</p>
+                <img src="bca.png" alt="Blu BCA Digital" class="h-10 mx-auto mb-6">
+                <p class="text-3xl font-mono text-amber-800 font-bold mb-4" id="norek">008634073206</p>
+                <p class="text-sm font-bold text-slate-600 uppercase tracking-widest">a.n Asri Widyasari</p>
+                <button onclick="copyNorek()" class="mt-8 text-[10px] text-amber-800 border border-amber-800 px-6 py-2 rounded-full font-bold hover:bg-amber-800 hover:text-white transition-all uppercase tracking-widest">Salin No. Rekening</button>
+            </div>
+        </section>
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBKCsMeNeZaaZRUmfX-ZrvvAI8hGMEJUJg",
-  authDomain: "undangan-irun-asri.firebaseapp.com",
-  projectId: "undangan-irun-asri",
-  storageBucket: "undangan-irun-asri.firebasestorage.app",
-  messagingSenderId: "1006634249280",
-  appId: "1:1006634249280:web:e2aad85965c67fdb1443a5"
-};
+        <footer class="py-20 text-center border-t border-amber-50 hero-bg">
+            <h3 class="font-title text-5xl text-amber-800 mb-4">Irun & Asri</h3>
+            <p class="text-[10px] tracking-[0.8em] text-slate-400 uppercase">Sampai Jadi Debu - Banda Neira</p>
+        </footer>
+    </div>
 
-firebase.initializeApp(firebaseConfig);
+    <script>
+        
+        // Animasi Kelopak Bunga
+        const container = document.getElementById('petal-container');
+        const petalIcons = ['🌸', '🍃', '💮', '✨'];
+        
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.innerHTML = petalIcons[Math.floor(Math.random() * petalIcons.length)];
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = Math.random() * 20 + 10 + 'px';
+            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+            petal.style.opacity = Math.random();
+            container.appendChild(petal);
+            
+            setTimeout(() => { petal.remove(); }, 7000);
+        }
+        setInterval(createPetal, 300);
+
+        const audio = document.getElementById('bgMusic');
+        const overlay = document.getElementById('overlay');
+
+/* Firebase */
+firebase.initializeApp({
+apiKey: "AIzaSyBKCsMeNeZaaZRUmfX-ZrvvAI8hGMEJUJg",
+authDomain: "undangan-irun-asri.firebaseapp.com",
+projectId: "undangan-irun-asri"
+});
 const db = firebase.firestore();
 
-let currentFilter='all';
-let unsubscribe=null;
+        function bukaUndangan() {
+            overlay.style.opacity = "0";
+            overlay.style.transform = "translateY(-100%)";
+            setTimeout(() => {
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto";
+            }, 1200);
+            audio.play();
+            document.getElementById('musicIcon').innerHTML = "⏸";
+        }
 
-commentForm.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  await db.collection('komentar').add({
-    nama:nama.value,
-    hadir:hadir.value,
-    pesan:pesan.value,
-    waktu:firebase.firestore.FieldValue.serverTimestamp()
-  });
-  commentForm.reset();
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                document.getElementById('musicIcon').innerHTML = "⏸";
+            } else {
+                audio.pause();
+                document.getElementById('musicIcon').innerHTML = "🎵";
+            }
+        }
+
+        function copyNorek() {
+            const text = document.getElementById('norek').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Nomor Rekening Disalin!");
+        }
+     /* RSVP */
+const form=document.getElementById('rsvpForm');
+const box=document.getElementById('komentar');
+
+
+form.addEventListener('submit',e=>{
+e.preventDefault();
+db.collection('rsvp').add({
+nama:nama.value,
+hadir:kehadiran.value,
+pesan:pesan.value,
+waktu:firebase.firestore.FieldValue.serverTimestamp()
+});
+form.reset();
 });
 
-function setFilter(f){
-  currentFilter=f;
-  loadComments();
-}
 
-function loadComments(){
-  if(unsubscribe) unsubscribe();
-  let q=db.collection('komentar').orderBy('waktu','desc');
-  if(currentFilter==='Hadir'){
-    q=q.where('hadir','==','Hadir');
-  }
-  unsubscribe=q.onSnapshot(snapshot=>{
-    commentList.innerHTML='';
-    snapshot.forEach(doc=>{
-      const d=doc.data();
-      commentList.innerHTML+=`
-        <div class="comment">
-          <strong>${d.nama}</strong> (${d.hadir})<br>
-          ${d.pesan}
-        </div>`;
-    });
-  });
-}
-loadComments();
-</script>
-
+db.collection('rsvp').where('hadir','==','Hadir').orderBy('waktu','desc')
+.onSnapshot(snap=>{
+box.innerHTML='';
+snap.forEach(doc=>{
+const d=doc.data();
+box.innerHTML+=`<div class="border-b py-3"><strong>${d.nama}</strong><br>${d.pesan}</div>`;
+});
+});
+    </script>
 </body>
 </html>
