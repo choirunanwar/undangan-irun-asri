@@ -56,24 +56,33 @@
        /* .flower-corner {
             position: absolute; width: 150px; opacity: 0.6; z-index: 10;
         } */
+        .nama-tamu {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.nama-tamu.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
     </style>
 </head>
 <body class="font-body">
 
-    <div id="petal-container"></div>
-
-    <div id="overlay">
-        <div class="text-center p-6 relative">
-            <h2 class="text-amber-900 tracking-[0.5em] mb-4 font-section text-sm">WEDDING ANNOUNCEMENT</h2>
-            <h1 class="text-6xl md:text-8xl font-title text-amber-800 mb-8">Irun & Asri</h1>
-            <div class="mb-10">
-                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p>
-                <p class="text-2xl font-name font-bold text-amber-950 italic uppercase">Tamu Undangan</p>
-            </div>
-            <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95">
-                ✉️ BUKA UNDANGAN
-            </button>
-        </div>
+   <div id="petal-container"></div> 
+    <div id="overlay"> 
+        <div class="text-center p-6 relative"> <h2 class="text-amber-900 tracking-[0.5em] mb-4 font-section text-sm">WEDDING ANNOUNCEMENT</h2> 
+            <h1 class="text-6xl md:text-8xl font-title text-amber-800 mb-8">Irun & Asri</h1> 
+            <div class="mb-10"> 
+                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p> 
+                <p id="namaTamu" class="text-2xl font-name font-bold text-amber-950 italic uppercase nama-tamu">
+  Tamu Undangan</p> 
+            </div> <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95"> 
+                ✉️ BUKA UNDANGAN 
+            </button> 
+        </div> 
     </div>
 
     <audio id="bgMusic" loop>
@@ -282,8 +291,47 @@ db.collection('rsvp')
 
 
     </script>
+    <script>
+function formatNamaTamu(nama) {
+  if (!nama) return "Tamu Undangan";
+
+  nama = nama.trim().replace(/\s+/g, " ");
+  nama = nama.replace(/\b(dan|Dan|DAN)\b/g, "&");
+
+  nama = nama
+    .toLowerCase()
+    .split(" ")
+    .map(kata => {
+      if (kata === "&") return "&";
+      return kata.charAt(0).toUpperCase() + kata.slice(1);
+    })
+    .join(" ");
+
+  nama = nama.replace(/&\s*keluarga/i, "& Keluarga");
+  return nama;
+}
+
+function bukaUndangan() {
+  // 🔹 Tutup overlay
+  document.getElementById("overlay").style.display = "none";
+
+  // 🔹 Ambil nama dari URL
+  const params = new URLSearchParams(window.location.search);
+  const rawNama = params.get("to");
+
+  const namaEl = document.getElementById("namaTamu");
+  namaEl.innerText = formatNamaTamu(decodeURIComponent(rawNama || ""));
+
+  // 🔹 Trigger animasi
+  setTimeout(() => {
+    namaEl.classList.add("show");
+  }, 100);
+}
+</script>
+
 </body>
 </html>
+
 
 
 
