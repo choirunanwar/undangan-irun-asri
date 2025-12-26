@@ -66,6 +66,57 @@
   opacity: 1;
   transform: translateY(0);
 }
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Frame bunga */
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Bunga kiri atas */
+.section::before {
+  top: -18px;
+  left: -18px;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
+<path d='M50 10 C30 30 30 70 50 90 C70 70 70 30 50 10 Z' fill='%23d8c3a5'/>\
+</svg>");
+}
+
+/* Bunga kanan bawah */
+.section::after {
+  bottom: -18px;
+  right: -18px;
+  transform: rotate(180deg);
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
+<path d='M50 10 C30 30 30 70 50 90 C70 70 70 30 50 10 Z' fill='%23d8c3a5'/>\
+</svg>");
+}
+.section .side-flower {
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
+  font-size: 26px;
+  opacity: 0.4;
+}
+
+.section .side-flower.right {
+  left: auto;
+  right: -20px;
+}
 
     </style>
 </head>
@@ -122,6 +173,8 @@
         </section>
 
         <section class="py-32 px-6 text-center hero-bg">
+            <span class="side-flower">❀</span>
+            <span class="side-flower right">❀</span>
             <h2 class="text-4xl font-name mb-24 text-amber-900 tracking-widest">KEDUA MEMPELAI</h2>
             <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-20">
                 <div class="p-8 card rounded-3xl">
@@ -138,6 +191,8 @@
         </section>
 
         <section class="py-32 px-6">
+            <span class="side-flower">❀</span>
+            <span class="side-flower right">❀</span>
             <div class="max-w-4xl mx-auto card p-10 md:p-20 rounded-[4rem] text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-16 -mt-16"></div>
                 
@@ -166,6 +221,8 @@
         </section>
 
         <section class="py-24 text-center bg-white">
+            <span class="side-flower">❀</span>
+            <span class="side-flower right">❀</span>
 <h2 class="font-name text-4xl mb-12 text-amber-900 tracking-widest">
   RSVP & Ucapan
 </h2>
@@ -186,6 +243,8 @@
 </section>
 
         <section class="py-32 px-6 text-center bg-white">
+            <span class="side-flower">❀</span>
+            <span class="side-flower right">❀</span>
             <h2 class="text-3xl font-section mb-10 text-amber-900 italic">Digital Gift</h2>
             <div class="card p-12 inline-block rounded-[3rem] shadow-xl max-w-md w-full border-2 border-amber-50">
                 <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em] mb-6">Transfer Bank</p>
@@ -358,6 +417,7 @@ function bukaUndangan() {
 
 </body>
 </html>
+
 
 
 
