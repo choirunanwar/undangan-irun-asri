@@ -117,6 +117,50 @@
   left: auto;
   right: -20px;
 }
+/* === ORNAMEN KHUSUS SECTION MEMPELAI === */
+#mempelai {
+  position: relative;
+  overflow: hidden;
+}
+
+/* bunga + daun kiri atas */
+#mempelai::before {
+  content: "";
+  position: absolute;
+  top: -32px;
+  left: -32px;
+  width: 140px;
+  height: 140px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>\
+<path d='M40 120 C20 90 40 60 70 70 C90 40 130 40 150 70 C180 60 190 100 160 120' fill='%23d8c3a5'/>\
+<circle cx='100' cy='90' r='18' fill='%23f5efe6'/>\
+</svg>");
+}
+
+/* bunga + daun kanan bawah */
+#mempelai::after {
+  content: "";
+  position: absolute;
+  bottom: -32px;
+  right: -32px;
+  width: 140px;
+  height: 140px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+  pointer-events: none;
+  transform: rotate(180deg);
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>\
+<path d='M40 120 C20 90 40 60 70 70 C90 40 130 40 150 70 C180 60 190 100 160 120' fill='%23d8c3a5'/>\
+<circle cx='100' cy='90' r='18' fill='%23f5efe6'/>\
+</svg>");
+}
 
     </style>
 </head>
@@ -162,6 +206,8 @@
         </section>
 
         <section class="py-32 px-6 text-center bg-white relative">
+            <span class="side-flower">❀</span>
+            <span class="side-flower right">❀</span>
             <div class="max-w-3xl mx-auto border-y-2 border-amber-50 py-12">
                 <p class="text-3xl md:text-5xl leading-loose font-arabic mb-10 text-slate-800" dir="rtl">
                     وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
@@ -191,8 +237,6 @@
         </section>
 
         <section class="py-32 px-6">
-            <span class="side-flower">❀</span>
-            <span class="side-flower right">❀</span>
             <div class="max-w-4xl mx-auto card p-10 md:p-20 rounded-[4rem] text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-16 -mt-16"></div>
                 
@@ -417,6 +461,7 @@ function bukaUndangan() {
 
 </body>
 </html>
+
 
 
 
