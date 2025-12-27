@@ -264,6 +264,32 @@
   scrollbar-width: thin;
   scrollbar-color: #e6d3b1 transparent;
 }
+/* === COUNTDOWN === */
+.count-box {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid #eee7d7;
+  border-radius: 1.5rem;
+  padding: 18px 10px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: transform .6s ease, opacity .6s ease;
+}
+
+.count-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #92400e;
+  display: block;
+}
+
+.count-label {
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-top: 6px;
+}
 
     </style>
 </head>
@@ -368,7 +394,30 @@
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-16 -mt-16"></div>
                 
                 <h2 class="text-4xl font-section font-bold mb-16 text-amber-950 tracking-widest">SAVE THE DATE</h2>
-                
+                <!-- COUNTDOWN -->
+<div id="countdown" class="grid grid-cols-4 gap-4 max-w-xl mx-auto my-14 fade-scroll">
+
+  <div class="count-box">
+    <span id="cd-days" class="count-num">00</span>
+    <span class="count-label">Hari</span>
+  </div>
+
+  <div class="count-box">
+    <span id="cd-hours" class="count-num">00</span>
+    <span class="count-label">Jam</span>
+  </div>
+
+  <div class="count-box">
+    <span id="cd-minutes" class="count-num">00</span>
+    <span class="count-label">Menit</span>
+  </div>
+
+  <div class="count-box">
+    <span id="cd-seconds" class="count-num">00</span>
+    <span class="count-label">Detik</span>
+  </div>
+
+</div>
                 <div class="grid md:grid-cols-2 gap-12 mb-16">
                     <div class="border-b-2 md:border-b-0 md:border-r-2 border-amber-100 pb-8 md:pb-0 md:pr-8">
                         <h4 class="font-bold text-amber-800 text-2xl font-name mb-4 italic">Akad Nikah</h4>
@@ -607,9 +656,40 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+<script>
+/* =========================
+   COUNTDOWN ACARA
+========================= */
+const weddingDate = new Date("2026-03-29T08:00:00+07:00");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = weddingDate - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML =
+      "<p class='text-amber-800 font-bold tracking-widest'>ACARA TELAH DIMULAI</p>";
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("cd-days").innerText = String(days).padStart(2, '0');
+  document.getElementById("cd-hours").innerText = String(hours).padStart(2, '0');
+  document.getElementById("cd-minutes").innerText = String(minutes).padStart(2, '0');
+  document.getElementById("cd-seconds").innerText = String(seconds).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
 
 </body>
 </html>
+
 
 
 
