@@ -237,6 +237,33 @@
     transform: scale(1);
   }
 }
+/* === SCROLL KHUSUS KOMENTAR RSVP === */
+.komentar-scroll {
+  max-height: 380px;        /* tinggi area komentar */
+  overflow-y: auto;         /* scroll vertikal */
+  padding-right: 6px;       /* ruang scrollbar */
+  scroll-behavior: smooth;
+}
+
+/* scrollbar cantik (Chrome, Edge, Safari) */
+.komentar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.komentar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.komentar-scroll::-webkit-scrollbar-thumb {
+  background-color: #e6d3b1; /* cream-gold */
+  border-radius: 10px;
+}
+
+/* Firefox */
+.komentar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #e6d3b1 transparent;
+}
 
     </style>
 </head>
@@ -358,8 +385,11 @@
 <button class="bg-amber-800 text-white px-6 py-3 w-full">Kirim</button>
 </form>
 
+<p class="text-xs uppercase tracking-[0.4em] text-slate-400 text-center mt-16 mb-4">
+  Ucapan & Doa
+</p>
 
-<div id="komentar" class="max-w-2xl mx-auto mt-16 px-4 space-y-6"></div>
+<div id="komentar" class="max-w-2xl mx-auto mt-16 px-4 space-y-6 komentar-scroll"></div>
 </section>
 
         <section class="py-32 px-6 text-center bg-white">
@@ -555,6 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
