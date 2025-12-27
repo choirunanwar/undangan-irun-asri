@@ -486,20 +486,21 @@ form.reset();
 
 db.collection('rsvp')
   .where('hadir', '==', 'Hadir')
+  .orderBy('waktu', 'desc')
   .onSnapshot(snapshot => {
     const box = document.getElementById('komentar');
     box.innerHTML = '';
 
     snapshot.forEach(doc => {
       const d = doc.data();
-     box.innerHTML += `
-  <div class="bg-white border border-amber-100 rounded-2xl p-6 shadow-md">
-    <p class="font-name font-bold text-amber-900 mb-2">${d.nama}</p>
-    <p class="text-sm text-slate-600 leading-relaxed">
-      ${d.pesan || '<em class="text-slate-400">Tanpa ucapan</em>'}
-    </p>
-  </div>
-`;
+      box.innerHTML += `
+        <div class="bg-white border border-amber-100 rounded-2xl p-6 shadow-md">
+          <p class="font-name font-bold text-amber-900 mb-2">${d.nama}</p>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            ${d.pesan || '<em class="text-slate-400">Tanpa ucapan</em>'}
+          </p>
+        </div>
+      `;
     });
   });
 
@@ -585,6 +586,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
