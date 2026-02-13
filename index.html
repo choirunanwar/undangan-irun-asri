@@ -399,31 +399,48 @@
 
    <div id="petal-container"></div> 
     <div id="overlay"> 
-        <div class="hero-title-wrapper text-center">
+       <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 hero-bg">
 
-  <div class="wedding-subtitle-wrapper">
-    <span class="floral-line left"></span>
-    <p class="wedding-subtitle">Wedding Announcement</p>
-    <span class="floral-line right"></span>
+  <!-- WRAPPER UTAMA -->
+  <div class="max-w-2xl mx-auto">
+
+    <!-- TITLE -->
+    <div class="hero-title-wrapper text-center">
+
+      <div class="wedding-subtitle-wrapper">
+        <span class="floral-line left"></span>
+        <p class="wedding-subtitle">Wedding Announcement</p>
+        <span class="floral-line right"></span>
+      </div>
+
+      <h1 class="hero-title">
+        Irun <span class="amp">&</span> Asri
+      </h1>
+
+      <div class="gold-line"></div>
+
+    </div>
+
+    <!-- NAMA TAMU -->
+    <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mt-10 mb-2">
+      Kepada Yth.
+    </p>
+
+    <p id="namaTamu"
+       class="text-2xl font-name font-bold text-amber-950 italic uppercase nama-tamu">
+      Tamu Undangan
+    </p>
+
+    <!-- BUTTON -->
+    <button onclick="bukaUndangan()"
+      class="mt-10 bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95">
+      ✉️ BUKA UNDANGAN
+    </button>
+
   </div>
 
-  <h1 class="hero-title">
-    Irun <span class="amp">&</span> Asri
-  </h1>
+</section>
 
-  <div class="gold-line"></div>
-
-</div>
-
-                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p> 
-                <p id="namaTamu" 
-                    class="text-2xl font-name font-bold text-amber-950 italic uppercase nama-tamu">
-  Tamu Undangan</p> 
-            </div> <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95"> 
-                ✉️ BUKA UNDANGAN 
-            </button> 
-        </div> 
-    </div>
 
     <audio id="bgMusic" loop>
         <source src="musik.mp3" type="audio/mpeg">
@@ -804,6 +821,7 @@ setInterval(updateCountdown, 1000);
 
 </body>
 </html>
+
 
 
 
