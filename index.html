@@ -399,48 +399,30 @@
 <body class="font-body">
 
    <div id="petal-container"></div> 
-    <div id="overlay" class="flex items-center justify-center">
-  <div class="w-full text-center p-6">
-    
-
-  <!-- WRAPPER UTAMA -->
-  <div class="max-w-2xl mx-auto">
-
-    <!-- TITLE -->
-    <div class="hero-title-wrapper text-center">
-
-      <div class="wedding-subtitle-wrapper">
-        <span class="floral-line left"></span>
-        <p class="wedding-subtitle">Wedding Announcement</p>
-        <span class="floral-line right"></span>
-      </div>
-
-      <h1 class="hero-title">
-        Irun <span class="amp">&</span> Asri
-      </h1>
-
-      <div class="gold-line"></div>
-
+    <div id="overlay">
+        <div class="text-center p-6 relative">
+            <h2 class="text-amber-900 tracking-[0.5em] mb-4 font-section text-sm">WEDDING ANNOUNCEMENT</h2>
+            <h1 class="text-6xl md:text-8xl font-title text-amber-800 mb-8">Irun & Asri</h1>
+            <div class="mb-10">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-2">Kepada Yth.</p>
+                <p class="text-2xl font-name font-bold text-amber-950 italic uppercase">Tamu Undangan</p>
+            </div>
+            <button onclick="bukaUndangan()" class="bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95">
+                ✉️ BUKA UNDANGAN
+            </button>
+        </div>
     </div>
 
-    <!-- NAMA TAMU -->
-    <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mt-10 mb-2">
-      Kepada Yth.
-    </p>
+    <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
 
-    <p id="namaTamu"
-       class="text-2xl font-name font-bold text-amber-950 italic uppercase nama-tamu">
-      Tamu Undangan
-    </p>
+    <div class="fixed bottom-5 right-5 z-50">
+        <button onclick="toggleMusic()" id="musicBtn" class="bg-amber-800/80 backdrop-blur-md text-white p-4 rounded-full shadow-lg">
+            <span id="musicIcon">🎵</span>
+        </button>
+    </div>
 
-    <!-- BUTTON -->
-    <button onclick="bukaUndangan()"
-      class="mt-10 bg-amber-800 text-white px-12 py-4 rounded-full font-bold tracking-widest shadow-2xl hover:bg-amber-950 transition-all transform hover:scale-110 active:scale-95">
-      ✉️ BUKA UNDANGAN
-    </button>
-  </div>
-  </div>
-  </div>
 
 
     <audio id="bgMusic" loop>
@@ -822,6 +804,7 @@ setInterval(updateCountdown, 1000);
 
 </body>
 </html>
+
 
 
 
