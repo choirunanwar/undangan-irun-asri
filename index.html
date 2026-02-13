@@ -393,13 +393,19 @@
   );
   border-radius: 2px;
 }
+        #overlay button {
+  position: relative;
+  z-index: 200;
+}
+
     </style>
 </head>
 <body class="font-body">
 
    <div id="petal-container"></div> 
-    <div id="overlay"> 
-       <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 hero-bg">
+    <div id="overlay" class="flex items-center justify-center">
+  <div class="w-full text-center p-6"></div>
+    </div>
 
   <!-- WRAPPER UTAMA -->
   <div class="max-w-2xl mx-auto">
@@ -438,8 +444,6 @@
     </button>
 
   </div>
-
-</section>
 
 
     <audio id="bgMusic" loop>
@@ -821,6 +825,7 @@ setInterval(updateCountdown, 1000);
 
 </body>
 </html>
+
 
 
 
